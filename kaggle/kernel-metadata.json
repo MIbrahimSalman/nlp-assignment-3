@@ -1,0 +1,16 @@
+{
+  "id": "mibrahimsalman022/nlp-assignment-3-english-urdu-nmt",
+  "title": "NLP Assignment 3 English Urdu NMT",
+  "code_file": "nmt_en_ur.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [
+    "zainuddin123/parallel-corpus-for-english-urdu-language",
+    "rtatman/glove-global-vectors-for-word-representation"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}
