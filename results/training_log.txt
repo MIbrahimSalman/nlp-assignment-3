@@ -1,0 +1,280 @@
+Device: cuda Tesla T4
+{'MAX_VOCAB': 6000, 'MAX_LEN': 16, 'EMB_DIM': 200, 'HIDDEN': 256, 'LAYERS': 2, 'N_HEADS': 8, 'FF_DIM': 512, 'DROPOUT': 0.3, 'BATCH': 64, 'LR': 0.0005, 'EPOCHS': 50, 'CLIP': 1.0, 'LABEL_SMOOTHING': 0.1}
+(24524, 2)
+                english                      en_tok                       urdu                            ur_tok
+0   is zain your nephew    [is, zain, your, nephew]      زین تمہارا بھتیجا ہے۔      [زین, تمہارا, بھتیجا, ہے, ۔]
+1  i wish youd trust me  [i, wish, youd, trust, me]  کاش تم مجھ پر بھروسہ کرتے  [کاش, تم, مجھ, پر, بھروسہ, کرتے]
+2      did he touch you       [did, he, touch, you]      کیا اس نے آپ کو چھوا؟    [کیا, اس, نے, آپ, کو, چھوا, ؟]
+3      its part of life       [its, part, of, life]         اس کی زندگی کا حصہ          [اس, کی, زندگی, کا, حصہ]
+4        zain isnt ugly          [zain, isnt, ugly]        زین بدصورت نہیں ہے۔        [زین, بدصورت, نہیں, ہے, ۔]
+English length stats:
+ count    24524.000000
+mean         4.042448
+std          1.175238
+min          1.000000
+25%          3.000000
+50%          4.000000
+75%          5.000000
+max         16.000000
+Name: en_tok, dtype: float64
+Urdu length stats:
+ count    24524.000000
+mean         5.323153
+std          1.798816
+min          1.000000
+25%          4.000000
+50%          5.000000
+75%          6.000000
+max         21.000000
+Name: ur_tok, dtype: float64
+19619 2452 2453
+English vocab: 5135 | Urdu vocab: 5134
+Padded shapes: torch.Size([19619, 16]) torch.Size([19619, 16])
+Example: are they brothers -> [14, 35, 839, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+         کیا وہ بھائی ہیں؟ -> [1, 9, 12, 281, 15, 22, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+GloVe coverage: 5037/5131 = 98.2%
+
+=== RNN: 5,250,742 trainable parameters ===
+epoch   1 | train 5.0570 | val 4.3409 | 5.8s
+epoch   5 | train 3.3874 | val 3.4619 | 3.0s
+epoch  10 | train 2.8394 | val 3.1872 | 3.1s
+epoch  15 | train 2.5668 | val 3.0651 | 3.2s
+epoch  20 | train 2.4000 | val 3.0042 | 3.2s
+epoch  25 | train 2.2873 | val 2.9657 | 3.2s
+epoch  30 | train 2.2045 | val 2.9344 | 3.2s
+epoch  35 | train 2.1434 | val 2.9154 | 3.2s
+epoch  40 | train 2.0921 | val 2.9102 | 3.2s
+epoch  45 | train 2.0535 | val 2.8906 | 3.2s
+epoch  50 | train 2.0161 | val 2.8894 | 3.2s
+RNN: best val loss 2.8854 at epoch 48, total 162s
+RNN {'BLEU': 32.76, 'BLEU-1': 59.74, 'ROUGE-1': np.float64(60.93), 'ROUGE-2': np.float64(38.82), 'ROUGE-L': np.float64(60.59), 'chrF': 49.04, 'METEOR': np.float64(52.71)}
+
+=== BiRNN: 5,761,974 trainable parameters ===
+epoch   1 | train 4.9077 | val 4.2382 | 3.6s
+epoch   5 | train 3.2700 | val 3.3894 | 3.5s
+epoch  10 | train 2.7306 | val 3.1209 | 3.5s
+epoch  15 | train 2.4532 | val 3.0171 | 3.5s
+epoch  20 | train 2.2838 | val 2.9636 | 3.5s
+epoch  25 | train 2.1738 | val 2.9408 | 3.5s
+epoch  30 | train 2.0932 | val 2.9124 | 3.5s
+epoch  35 | train 2.0327 | val 2.8988 | 3.5s
+epoch  40 | train 1.9856 | val 2.8914 | 3.5s
+epoch  45 | train 1.9436 | val 2.8904 | 3.5s
+epoch  50 | train 1.9103 | val 2.8844 | 3.5s
+BiRNN: best val loss 2.8819 at epoch 49, total 177s
+BiRNN {'BLEU': 33.07, 'BLEU-1': 59.73, 'ROUGE-1': np.float64(61.14), 'ROUGE-2': np.float64(39.44), 'ROUGE-L': np.float64(60.77), 'chrF': 49.33, 'METEOR': np.float64(52.81)}
+
+=== LSTM: 6,940,342 trainable parameters ===
+epoch   1 | train 5.2750 | val 4.6343 | 4.2s
+epoch   5 | train 3.4377 | val 3.5023 | 4.2s
+epoch  10 | train 2.7480 | val 3.1051 | 4.2s
+epoch  15 | train 2.3670 | val 2.9339 | 4.2s
+epoch  20 | train 2.1339 | val 2.8466 | 4.2s
+epoch  25 | train 1.9779 | val 2.7982 | 4.2s
+epoch  30 | train 1.8718 | val 2.7744 | 4.2s
+epoch  35 | train 1.7903 | val 2.7626 | 4.2s
+epoch  40 | train 1.7306 | val 2.7563 | 4.2s
+epoch  45 | train 1.6839 | val 2.7480 | 4.2s
+epoch  50 | train 1.6448 | val 2.7523 | 4.2s
+LSTM: best val loss 2.7471 at epoch 48, total 212s
+LSTM {'BLEU': 37.78, 'BLEU-1': 64.4, 'ROUGE-1': np.float64(64.92), 'ROUGE-2': np.float64(43.8), 'ROUGE-L': np.float64(64.42), 'chrF': 54.04, 'METEOR': np.float64(57.52)}
+
+=== BiLSTM: 8,722,614 trainable parameters ===
+epoch   1 | train 5.1625 | val 4.4904 | 4.9s
+epoch   5 | train 3.2599 | val 3.3601 | 4.9s
+epoch  10 | train 2.5687 | val 3.0093 | 4.9s
+epoch  15 | train 2.2013 | val 2.8722 | 5.0s
+epoch  20 | train 1.9808 | val 2.8244 | 4.9s
+epoch  25 | train 1.8348 | val 2.7920 | 5.0s
+epoch  30 | train 1.7370 | val 2.7969 | 4.9s
+epoch  35 | train 1.6705 | val 2.7929 | 4.9s
+epoch  40 | train 1.6172 | val 2.7967 | 4.9s
+epoch  45 | train 1.5779 | val 2.8009 | 4.9s
+epoch  50 | train 1.5457 | val 2.8075 | 4.9s
+BiLSTM: best val loss 2.7896 at epoch 29, total 246s
+BiLSTM {'BLEU': 37.22, 'BLEU-1': 63.95, 'ROUGE-1': np.float64(64.45), 'ROUGE-2': np.float64(42.99), 'ROUGE-L': np.float64(64.07), 'chrF': 53.0, 'METEOR': np.float64(56.77)}
+
+=== Transformer: 4,877,382 trainable parameters ===
+epoch   1 | train 5.3253 | val 4.7520 | 6.0s
+epoch   5 | train 3.9045 | val 3.8388 | 5.8s
+epoch  10 | train 3.2801 | val 3.3915 | 5.7s
+epoch  15 | train 2.8637 | val 3.1391 | 5.8s
+epoch  20 | train 2.5978 | val 3.0278 | 5.8s
+epoch  25 | train 2.4257 | val 2.9641 | 5.8s
+epoch  30 | train 2.3128 | val 2.9205 | 5.8s
+epoch  35 | train 2.2292 | val 2.8780 | 5.7s
+epoch  40 | train 2.1602 | val 2.8556 | 5.7s
+epoch  45 | train 2.1108 | val 2.8422 | 5.7s
+epoch  50 | train 2.0701 | val 2.8241 | 5.9s
+Transformer: best val loss 2.8241 at epoch 50, total 289s
+Transformer {'BLEU': 39.7, 'BLEU-1': 65.08, 'ROUGE-1': np.float64(65.75), 'ROUGE-2': np.float64(45.54), 'ROUGE-L': np.float64(65.12), 'chrF': 56.99, 'METEOR': np.float64(58.8)}
+
+=== RNN + GloVe: 5,250,742 trainable parameters ===
+epoch   1 | train 5.0671 | val 4.3935 | 3.2s
+epoch   5 | train 3.3345 | val 3.3924 | 3.2s
+epoch  10 | train 2.7611 | val 3.0858 | 3.2s
+epoch  15 | train 2.4634 | val 2.9634 | 3.2s
+epoch  20 | train 2.2887 | val 2.8921 | 3.2s
+epoch  25 | train 2.1704 | val 2.8543 | 3.2s
+epoch  30 | train 2.0830 | val 2.8325 | 3.2s
+epoch  35 | train 2.0205 | val 2.8152 | 3.2s
+epoch  40 | train 1.9712 | val 2.8041 | 3.2s
+epoch  45 | train 1.9314 | val 2.7958 | 3.2s
+epoch  50 | train 1.9024 | val 2.7870 | 3.2s
+RNN + GloVe: best val loss 2.7846 at epoch 48, total 161s
+RNN + GloVe {'BLEU': 35.32, 'BLEU-1': 62.28, 'ROUGE-1': np.float64(63.19), 'ROUGE-2': np.float64(41.16), 'ROUGE-L': np.float64(62.79), 'chrF': 51.24, 'METEOR': np.float64(55.31)}
+              BLEU  BLEU-1  ROUGE-1  ROUGE-2  ROUGE-L   chrF  METEOR  Best val loss  Best epoch   Params  Train time (s)  s/epoch
+Model                                                                                                                            
+RNN          32.76   59.74    60.93    38.82    60.59  49.04   52.71         2.8854          48  5250742           161.6     3.23
+BiRNN        33.07   59.73    61.14    39.44    60.77  49.33   52.81         2.8819          49  5761974           176.8     3.54
+LSTM         37.78   64.40    64.92    43.80    64.42  54.04   57.52         2.7471          48  6940342           211.7     4.23
+BiLSTM       37.22   63.95    64.45    42.99    64.07  53.00   56.77         2.7896          29  8722614           246.3     4.93
+Transformer  39.70   65.08    65.75    45.54    65.12  56.99   58.80         2.8241          50  4877382           288.9     5.78
+RNN + GloVe  35.32   62.28    63.19    41.16    62.79  51.24   55.31         2.7846          48  5250742           160.8     3.22
+
+EN : he is an italian
+REF: وہ ایک اطالوی ہے
+  RNN         : وہ ایک excon ہے
+  BiRNN       : وہ ایک انگریز ہے
+  LSTM        : وہ ایک ماہر ہے
+  BiLSTM      : وہ ایک ماہر ہے
+  Transformer : وہ ایک اطالوی ہے
+  RNN + GloVe : وہ ایک فرانسیسی ہے
+
+EN : whose land is this
+REF: جس کی زمین یہ ہے
+  RNN         : یہ کس کا ہے
+  BiRNN       : یہ کس کا گٹار ہے
+  LSTM        : یہ کس کی پنسل ہے
+  BiLSTM      : یہ کس کی قمیض ہے ؟
+  Transformer : یہ کس کا مالک ہے
+  RNN + GloVe : یہ کس کا گٹار ہے
+
+EN : zain is seldom home
+REF: زین شاذ و نادر ہی گھر ہوتا ہے۔
+  RNN         : زین گھر گھر ہے
+  BiRNN       : زین گھر سے گھر ہے ۔
+  LSTM        : زین گھر سے گھر ہے ۔
+  BiLSTM      : زین گھر سے گھر ہے ۔
+  Transformer : زین شاذ و نادر ہی گھر ہے ۔
+  RNN + GloVe : زین گھر سے گھر ہے ۔
+
+EN : i need a new bicycle
+REF: مجھے ایک نئی سائیکل چاہیے
+  RNN         : مجھے ایک نئی سائیکل چاہیے
+  BiRNN       : مجھے ایک نئی سائیکل چاہیے
+  LSTM        : میں ایک نئی سائیکل کی ضرورت ہے
+  BiLSTM      : میں ایک نئی الماری کی ضرورت ہے
+  Transformer : مجھے ایک نئی سائیکل چاہیے
+  RNN + GloVe : مجھے ایک نئی سائیکل چاہیے
+
+EN : i can sleep anywhere
+REF: میں کہیں بھی سو سکتا ہوں
+  RNN         : میں کہیں بھی جا سکتا ہوں ۔
+  BiRNN       : میں کہیں کہیں ہوں
+  LSTM        : میں بھی سو سکتا ہوں
+  BiLSTM      : میں کہیں بھی جا سکتا ہوں
+  Transformer : میں کہیں بھی سو سکتا ہوں
+  RNN + GloVe : میں کہیں بھی سو سکتا ہوں
+
+EN : were leaving
+REF: جا رہے تھے
+  RNN         : مورخ تھے
+  BiRNN       : جا رہے تھے
+  LSTM        : جا رہے تھے
+  BiLSTM      : جا رہے تھے
+  Transformer : جا رہے تھے
+  RNN + GloVe : چھپے تھے
+
+EN : what is it worth
+REF: اس کی کیا قیمت ہے
+  RNN         : یہ کیا ہے
+  BiRNN       : یہ کیا ہے
+  LSTM        : یہ کیا کام ہے
+  BiLSTM      : یہ کیا ہوا ہے
+  Transformer : یہ کیا قابل ہے
+  RNN + GloVe : یہ کس چیز ہے
+
+EN : does that satisfy you
+REF: کیا یہ آپ کو مطمئن کرتا ہے؟
+  RNN         : کیا یہ آپ کو جانتی ہے ؟
+  BiRNN       : کیا یہ آپ کو تکلیف دیتا ہے
+  LSTM        : کیا اس سے آپ خوفزدہ ہوتے ہیں
+  BiLSTM      : کیا یہ آپ سے محبت کرتا ہے
+  Transformer : کیا آپ اس سے لطف اندوز ہوتا ہے
+  RNN + GloVe : کیا یہ آپ کی بات کرتا ہے ؟
+
+EN : how was your night
+REF: تمہاری رات کیسی گزری
+  RNN         : آپ کا ویک کیسا رہا ؟
+  BiRNN       : آپ کا ویک کیسا تھا ؟
+  LSTM        : آپ کا ویک کیسا تھا
+  BiLSTM      : آپ کا ویک کیسا رہا تھا
+  Transformer : آپ کا رات کیسا تھا
+  RNN + GloVe : آپ کی رات کیسا تھی ؟
+
+EN : zain saw everything
+REF: زین نے سب کچھ دیکھا
+  RNN         : زین نے سب کچھ دیکھا
+  BiRNN       : زین نے سب کچھ دیکھا
+  LSTM        : زین نے سب کچھ دیکھا
+  BiLSTM      : زین نے سب کچھ دیکھا
+  Transformer : زین نے سب کچھ دیکھا
+  RNN + GloVe : زین نے سب کو دیکھا
+
+EN : dont spill the beans
+REF: پھلیاں نہ پھیلائیں
+  RNN         : اس کی مت مت کرو
+  BiRNN       : دروازہ نہ دیں
+  LSTM        : کتے کو مت کھولو
+  BiLSTM      : دروازہ نہ کرو
+  Transformer : احتیاط مت توڑو
+  RNN + GloVe : باورچی نہ پیو
+
+EN : he raised his hand
+REF: اس نے اپنا ہاتھ اٹھایا
+  RNN         : اس نے اپنا ہاتھ اٹھایا
+  BiRNN       : اس نے اپنا ہاتھ اٹھایا
+  LSTM        : اس نے اپنا ہاتھ اٹھایا
+  BiLSTM      : اس نے اپنا ہاتھ اٹھایا
+  Transformer : اس نے اپنا ہاتھ اٹھایا
+  RNN + GloVe : اس نے اپنا ہاتھ اٹھایا
+
+EN : you broke my heart
+REF: تم نے میرا دل توڑا
+  RNN         : آپ نے میرا دل توڑ دیا ۔
+  BiRNN       : تم نے میرا دل توڑ دیا ۔
+  LSTM        : تم نے میرا دل توڑ دیا ۔
+  BiLSTM      : تم نے میرا دل توڑ دیا ۔
+  Transformer : تم نے میرا دل توڑ دیا ۔
+  RNN + GloVe : تم نے میرا دل توڑ دیا ۔
+
+EN : the house was decorated
+REF: گھر سجایا گیا تھا
+  RNN         : گھر بند تھا
+  BiRNN       : گھر بیمار تھا
+  LSTM        : گھر پریتوادت تھا
+  BiLSTM      : گھر خالی تھا
+  Transformer : گھر پریتوادت تھا
+  RNN + GloVe : گھر گھر تھا
+
+EN : i am at your service
+REF: میں آپ کی خدمت میں حاضر ہوں۔
+  RNN         : میں آپ کے قریب ہوں ۔
+  BiRNN       : میں آپ کے بیٹے کے لیے ہوں ۔
+  LSTM        : میں آپ کے اختیار میں ہوں
+  BiLSTM      : میں آپ کی عمر میں ہوں
+  Transformer : میں آپ کے بالکل پاگل ہوں
+  RNN + GloVe : میں آپ کے ساتھ ہوں ۔
+             English                  RNN                BiRNN                 LSTM                 BiLSTM          Transformer          RNN + GloVe
+0         i am happy          میں خوش ہوں          میں خوش ہوں          میں خوش ہوں            میں خوش ہوں          میں خوش ہوں          میں خوش ہوں
+1   where is my book  میری کتاب کہاں ہے ؟    میری کتاب کہاں ہے  میری کتاب کہاں ہے ؟    میری کتاب کہاں ہے ؟    میری کتاب کہاں ہے  میری کتاب کہاں ہے ؟
+2   he is a good boy  وہ ایک اچھا لڑکا ہے  وہ ایک اچھا لڑکا ہے    وہ اچھا لڑکا ہے ۔  وہ ایک اچھا لڑکا ہے ۔  وہ ایک اچھا لڑکا ہے  وہ ایک اچھا لڑکا ہے
+3  what is your name                 ہائے                 ہائے                 ہائے                   ہائے     آپ کا نام کیا ہے                 ہائے
+4  we are going home    ہم گھر جا رہے ہیں    ہم گھر جا رہے ہیں    ہم گھر جا رہے ہیں      ہم گھر جا رہے ہیں    ہم گھر جا رہے ہیں    ہم گھر جا رہے ہیں
+              BLEU  BLEU-1  ROUGE-1  ROUGE-2  ROUGE-L   chrF  METEOR  Best val loss  Best epoch   Params  Train time (s)  s/epoch
+Model                                                                                                                            
+RNN          32.76   59.74    60.93    38.82    60.59  49.04   52.71         2.8854          48  5250742           161.6     3.23
+RNN + GloVe  35.32   62.28    63.19    41.16    62.79  51.24   55.31         2.7846          48  5250742           160.8     3.22
+First epoch reaching val loss <= 2.8854: {'RNN': 48, 'RNN + GloVe': 22}
+Saved outputs to /kaggle/working

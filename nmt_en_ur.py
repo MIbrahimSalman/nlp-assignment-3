@@ -30,8 +30,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import TensorDataset, DataLoader
 from torch.nn.utils.rnn import pack_padded_sequence
-import matplotlib
-matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from nltk.translate.bleu_score import corpus_bleu, sentence_bleu, SmoothingFunction
 
@@ -486,10 +484,21 @@ ONLY = os.environ.get("ONLY_MODELS")
 if ONLY:
     MODELS = {k: v for k, v in MODELS.items() if k in ONLY.split(",")}
 
+# If PRETRAINED_DIR is set, reuse weights and training histories saved by an earlier full run
+# (e.g. the Kaggle GPU run) instead of training again; evaluation below still runs on them.
+PRETRAINED_DIR = os.environ.get("PRETRAINED_DIR")
 histories, scores, translations = {}, {}, {}
 for name, build in MODELS.items():
     torch.manual_seed(SEED)
-    model, hist = train_model(name, build())
+    if PRETRAINED_DIR:
+        model = build().to(DEVICE)
+        model.load_state_dict(torch.load(os.path.join(PRETRAINED_DIR, f"{name.replace(' + ', '_').lower()}.pt"), map_location=DEVICE))
+        hist = {k: v for k, v in json.load(open(os.path.join(PRETRAINED_DIR, "results.json")))["histories"][name].items()
+                if k != "inference_time"}
+        print(f"{name}: loaded trained weights (best val loss {hist['best_val']:.4f} at epoch {hist['best_epoch']}, "
+              f"trained {len(hist['val_loss'])} epochs in {hist['total_time']:.0f}s on GPU)")
+    else:
+        model, hist = train_model(name, build())
     histories[name] = hist
     t = time.time()
     hyps = translate(model, Xte)
