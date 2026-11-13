@@ -2,3 +2,8 @@ outputs/
 __pycache__/
 
 data/
+report/*.aux
+report/*.log
+report/*.toc
+report/*.out
+report/*.pdf

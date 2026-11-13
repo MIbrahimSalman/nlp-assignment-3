@@ -1,7 +1,13 @@
-# English → Urdu Machine Translation: Comparative Report
+# NLP Assignment 3: English → Urdu Machine Translation, Comparative Report
+
+**Name:** Mohammad Ibrahim Salman  
+**Roll Number:** 23L-0723  
+**Course:** Natural Language Processing
+
+PDF version: [`23L-0723_NLP_Assignment-3.pdf`](23L-0723_NLP_Assignment-3.pdf)
 
 **Dataset:** [Parallel corpus for English & Urdu](https://www.kaggle.com/datasets/zainuddin123/parallel-corpus-for-english-urdu-language). After removing empty lines there are 24,524 sentence pairs. Most are short conversational sentences of 3–6 words.
-**Code:** [`nmt_en_ur.ipynb`](nmt_en_ur.ipynb) (executed notebook) / [`nmt_en_ur.py`](nmt_en_ur.py) (same code as a script).
+**Code:** [`23L-0723_NLP_Assignment-3.ipynb`](23L-0723_NLP_Assignment-3.ipynb) (executed notebook) / [`nmt_en_ur.py`](nmt_en_ur.py) (same code as a script).
 **Hardware:** Kaggle notebook on an NVIDIA Tesla T4. The full training log is in [`results/training_log.txt`](results/training_log.txt).
 
 ## 1. Setup
@@ -130,4 +136,4 @@ Overall, for this small, short-sentence English→Urdu corpus, attention matters
   ```bash
   DATA_DIR=data python nmt_en_ur.py
   ```
-  To evaluate the trained weights in `results/` without retraining, set `PRETRAINED_DIR=results` (this is how `nmt_en_ur.ipynb` was executed).
+  To evaluate the trained weights in `results/` without retraining, set `PRETRAINED_DIR=results` (this is how `23L-0723_NLP_Assignment-3.ipynb` was executed).

@@ -1,5 +1,7 @@
 # Project context
 
+**Student:** Mohammad Ibrahim Salman · **Roll Number:** 23L-0723 · **Course:** Natural Language Processing
+
 Background for anyone (person or AI assistant) picking up this repo: what the assignment asks for, what has been
 done, how the code is organised, the design decisions and why, and how to re-run things.
 
@@ -27,10 +29,10 @@ English → Urdu machine translation on the Kaggle dataset
 | Path | Purpose |
 |---|---|
 | `nmt_en_ur.py` | **Source of truth** for the code (jupytext "percent" format: `# %%` cells, `# %% [markdown]` text cells) |
-| `nmt_en_ur.ipynb` | Executed notebook generated from the `.py` (outputs are from evaluating the Kaggle-trained weights) |
+| `23L-0723_NLP_Assignment-3.ipynb` | Executed notebook generated from the `.py` (outputs are from evaluating the Kaggle-trained weights) |
 | `kaggle/nmt_en_ur.ipynb` | Un-executed notebook that was pushed to Kaggle for GPU training |
 | `kaggle/kernel-metadata.json` | Kaggle kernel config: GPU on, internet on, dataset sources (corpus + GloVe) |
-| `REPORT.md` | Final report: setup, results table, examples, GloVe discussion, conclusion |
+| `23L-0723_NLP_Assignment-3.md` / `.pdf` | Final report (Markdown and LaTeX-compiled PDF; LaTeX source in `report/`): setup, results table, examples, GloVe discussion, conclusion |
 | `README.md` | Short overview + headline results table |
 | `results/results.csv` | One row per model: all metrics, best val loss/epoch, params, train time |
 | `results/results.json` | Config, scores, per-epoch train/val loss and epoch times for each model, Part 4 stats |
@@ -38,6 +40,7 @@ English → Urdu machine translation on the Kaggle dataset
 | `results/custom_translations.csv` | 5 hand-written sentences translated by every model |
 | `results/*.png` | Loss curves, score bar chart, RNN random vs GloVe curves |
 | `results/training_log.txt` | stdout of the full Kaggle GPU training run |
+| `report/` | LaTeX source of the PDF report (`23L-0723_NLP_Assignment-3.tex`, compile with XeLaTeX for Urdu) and `make_figures.py`, which draws its figures from `results/results.json` |
 | `results/*.pt` | Trained weights (best-val-loss checkpoints) for all six models |
 
 **Editing workflow:** edit `nmt_en_ur.py`, then regenerate the notebooks:
@@ -104,7 +107,7 @@ To refresh the executed notebook without retraining, run that file with `PRETRAI
   * This also means no `nltk.download` is needed.
 * **chrF:** implemented by hand (character 1–6-grams, β = 2). It is a check that does not depend on tokenisation.
 
-## Results (test set, see `REPORT.md` for the full table and discussion)
+## Results (test set, see `23L-0723_NLP_Assignment-3.md` for the full table and discussion)
 
 | Model | BLEU-4 | ROUGE-L | METEOR | chrF | Train time |
 |---|---|---|---|---|---|
@@ -156,10 +159,10 @@ Environment variables:
 * `EPOCHS`: override the epoch count, e.g. `EPOCHS=1` for a smoke test. A 1-epoch run of all models takes a few minutes on CPU.
 * `ONLY_MODELS`: comma-separated model names to run, e.g. `RNN,Transformer`.
 * `OUT_DIR`: where outputs go. The default is `/kaggle/working` on Kaggle and `outputs/` elsewhere.
-* `PRETRAINED_DIR=results`: skip training, load the `.pt` weights and histories, and run evaluation and plots. This is how the committed `nmt_en_ur.ipynb` was produced:
+* `PRETRAINED_DIR=results`: skip training, load the `.pt` weights and histories, and run evaluation and plots. This is how the committed `23L-0723_NLP_Assignment-3.ipynb` was produced:
 
 ```bash
-PRETRAINED_DIR=results DATA_DIR=path/to/data jupyter nbconvert --to notebook --execute kaggle/nmt_en_ur.ipynb --output-dir . --output nmt_en_ur.ipynb
+PRETRAINED_DIR=results DATA_DIR=path/to/data jupyter nbconvert --to notebook --execute kaggle/nmt_en_ur.ipynb --output-dir . --output 23L-0723_NLP_Assignment-3.ipynb
 ```
 
 Running locally reproduced the Kaggle scores and sample translations exactly.
@@ -170,3 +173,12 @@ Running locally reproduced the Kaggle scores and sample translations exactly.
 * Train the Transformer longer or with a warm-up learning-rate schedule. It had not converged at 50 epochs.
 * Use beam search instead of greedy decoding.
 * Use subword tokenisation (BPE/SentencePiece) to reduce `<unk>` and handle Urdu morphology.
+
+## Rebuilding the PDF report
+
+Needs XeLaTeX with polyglossia/bidi, plus the Noto Serif, Noto Sans, Noto Sans Mono and Noto Naskh Arabic fonts.
+On Debian/Ubuntu these come from `texlive-xetex`, `texlive-latex-extra`, `texlive-pictures`, `texlive-lang-arabic` and `fonts-noto-core`.
+
+```bash
+cd report && python3 make_figures.py && xelatex 23L-0723_NLP_Assignment-3.tex && xelatex 23L-0723_NLP_Assignment-3.tex && xelatex 23L-0723_NLP_Assignment-3.tex && cp 23L-0723_NLP_Assignment-3.pdf ..
+```

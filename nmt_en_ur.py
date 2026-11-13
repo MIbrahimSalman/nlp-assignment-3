@@ -12,6 +12,10 @@
 
 # %% [markdown]
 # # English → Urdu Neural Machine Translation
+# **Name:** Mohammad Ibrahim Salman  
+# **Roll Number:** 23L-0723  
+# **Course:** Natural Language Processing
+#
 # **NLP Assignment 3**: RNN, BiRNN, LSTM, BiLSTM and Transformer encoder-decoder models, plus
 # random vs. pre-trained GloVe embeddings for the RNN model.
 #
