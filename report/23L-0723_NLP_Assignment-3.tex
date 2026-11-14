@@ -5,9 +5,10 @@
 
 \usepackage[margin=2.3cm,headheight=14pt]{geometry}
 \usepackage{fontspec}
-\setmainfont{Noto Serif}[Scale=0.95]
-\setsansfont{Noto Sans}[Scale=0.95]
-\setmonofont{Noto Sans Mono}[Scale=0.85]
+% Fonts are loaded by file name (Noto ships with TeX Live / MiKTeX), so no system install is needed.
+\setmainfont{NotoSerif}[Extension=.ttf,UprightFont=*-Regular,BoldFont=*-Bold,ItalicFont=*-Italic,BoldItalicFont=*-BoldItalic,Scale=0.95]
+\setsansfont{NotoSans}[Extension=.ttf,UprightFont=*-Regular,BoldFont=*-Bold,ItalicFont=*-Italic,BoldItalicFont=*-BoldItalic,Scale=0.95]
+\setmonofont{NotoSansMono}[Extension=.ttf,UprightFont=*-Regular,BoldFont=*-Bold,Scale=0.85]
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
@@ -67,6 +68,7 @@
 \lstset{basicstyle=\ttfamily\small,backgroundcolor=\color{cBg},frame=single,rulecolor=\color{cNeutral!40},
   breaklines=true,columns=fullflexible,keepspaces=true,xleftmargin=4pt,xrightmargin=4pt,aboveskip=6pt,belowskip=6pt}
 
+\linespread{1.1}% slightly more space between lines
 \setlist{itemsep=2pt,topsep=3pt}
 \newcommand{\term}[1]{\textbf{\textcolor{cModel}{#1}}}
 \newcommand{\best}[1]{\textbf{\textcolor{cKey}{#1}}}
@@ -79,45 +81,43 @@
 \usepackage{polyglossia}
 \setdefaultlanguage{english}
 \setotherlanguage{urdu}
-\newfontfamily\urdufont{Noto Naskh Arabic}[Script=Arabic,Scale=0.95]
-\newcommand{\ur}[1]{\mbox{\texturdu{#1}}}
+% Jameel Noori Nastaleeq (fonts/), the standard Urdu Nastaliq typeface. It has no bold, so bold is emboldened.
+\newfontfamily\urdufont{JameelNooriNastaleeq.ttf}[Path=fonts/,Script=Arabic,Language=Urdu,Scale=1.25,AutoFakeBold=2]
+\newfontfamily\urdufontsf{JameelNooriNastaleeq.ttf}[Path=fonts/,Script=Arabic,Language=Urdu,Scale=1.25,AutoFakeBold=2]
+% Fixed height/depth so every Urdu row gets the same spacing (Nastaliq glyph heights vary a lot)
+\newcommand{\ur}[1]{\mbox{\raisebox{0pt}[2.1ex][0.7ex]{\texturdu{#1}}}}
 
 \begin{document}
 
 % ---------------- Title block ----------------
 \begin{titlepage}
-\begin{tikzpicture}[remember picture,overlay]
-  \fill[cModel] (current page.north west) rectangle ([yshift=-7.2cm]current page.north east);
-  \fill[cKey] ([yshift=-7.2cm]current page.north west) rectangle ([yshift=-7.45cm]current page.north east);
-\end{tikzpicture}
-\vspace*{0.4cm}
-{\color{white}\sffamily
-{\large Natural Language Processing}\\[0.5cm]
-{\fontsize{26}{32}\selectfont\bfseries NLP Assignment 3}\\[0.35cm]
-{\LARGE English $\rightarrow$ Urdu Neural Machine Translation}\\[0.25cm]
-{\large RNN, BiRNN, LSTM, BiLSTM and Transformer, plus GloVe embeddings}\par}
-\vspace{3.0cm}
-\begin{tcolorbox}[enhanced,colback=cBg,colframe=cNeutral,boxrule=0.5pt,arc=2pt,width=0.75\textwidth,left=10pt,top=8pt,bottom=8pt]
-\sffamily
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{@{}>{\color{cNeutral}}l l@{}}
-Name & \textbf{Mohammad Ibrahim Salman}\\
-Roll Number & \textbf{23L-0723}\\
-Course & \textbf{Natural Language Processing}\\
-Assignment & NLP Assignment 3\\
-\end{tabular}
-\end{tcolorbox}
-\vspace{1.0cm}
-\begin{keybox}[Result at a glance]
-Six translation models were trained on the same 24,524 English--Urdu sentence pairs with identical settings
-for 50 epochs each. The \best{Transformer} scores highest on every metric
-(\best{BLEU 39.70}, ROUGE-L 65.12, METEOR 58.80, chrF 56.99), even though it has the fewest parameters.
-Starting the RNN from pre-trained \textcolor{cData}{\textbf{GloVe}} embeddings adds about 2.5 points on every
-metric and reaches the plain RNN's best validation loss in 22 epochs instead of 48.
-\end{keybox}
+\centering\setlength{\parindent}{0pt}
+\vspace*{3.4cm}
+{\fontsize{30}{36}\selectfont\bfseries\color{cModel} NLP Assignment 3\par}
+\vspace{0.9cm}
+{\Large English $\rightarrow$ Urdu Neural Machine Translation with\\[3pt]
+RNN, BiRNN, LSTM, BiLSTM, Transformer and GloVe embeddings\par}
+\vspace{1.1cm}
+{\large\color{cNeutral} Natural Language Processing -- Course Assignment\par}
+
+\vspace{2.0cm}
+{\large
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Name} & \textbf{Roll number}\\
+\midrule
+Mohammad Ibrahim Salman & 23L-0723\\
+\bottomrule
+\end{tabular}\par}
+
 \vfill
-{\small\color{cNeutral}\sffamily Code: \file{23L-0723_NLP_Assignment-3.ipynb} (executed notebook) and \file{nmt_en_ur.py} (the same code as a script).
-Hardware: Kaggle notebook on an NVIDIA Tesla T4 GPU. Full training log: \file{results/training_log.txt}.\par}
+% Small emblem: an English token translated into an Urdu token
+\begin{tikzpicture}[font=\small\sffamily]
+  \node[rounded corners=4pt,draw=cModel,fill=cModel!12,thick,minimum width=1.3cm,minimum height=0.8cm] (en) at (0,0) {EN};
+  \node[rounded corners=4pt,draw=cModel,fill=cModel,thick,text=white,minimum width=1.3cm,minimum height=0.8cm] (ur) at (2.6,0) {\large\texturdu{اردو}};
+  \draw[-{Stealth[length=2.2mm]},thick,draw=cNeutral] (en) -- (ur);
+\end{tikzpicture}\par
+\vspace*{1.6cm}
 \end{titlepage}
 
 \tableofcontents
@@ -361,7 +361,8 @@ Table~\ref{tab:scores} gives every score; Figure~\ref{fig:scores} shows the four
 \end{tabular}
 
 \vspace{0.6cm}
-\caption{Model size, best validation loss and training cost (50 epochs on a Tesla T4).}
+\caption{Model size, best validation loss and training cost (50 epochs on a Tesla T4).
+The Transformer is the smallest model (4.88\,M parameters) but the slowest per epoch (5.8\,s).}
 \label{tab:cost}
 \begin{tabular}{@{}l rrrrr@{}}
 \toprule
@@ -383,7 +384,7 @@ the test scores measure the full translations the model writes on its own. The t
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{figures/scores.pdf}
+\includegraphics[width=0.85\textwidth]{figures/scores.pdf}
 \caption{The \textcolor{cKey}{Transformer} (vermilion diamond) leads on all four metrics.
 LSTMs (navy) beat plain RNNs (slate) by about 5 points, and GloVe (teal) lifts the RNN about halfway to the LSTMs. Hollow markers are bidirectional encoders.}
 \label{fig:scores}
@@ -393,7 +394,7 @@ Figure~\ref{fig:valloss} shows the validation loss for each model across all 50 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{figures/val_loss.pdf}
+\includegraphics[width=0.85\textwidth]{figures/val_loss.pdf}
 \caption{Validation loss per epoch. The recurrent models flatten out well before epoch 50, but the
 \textcolor{cKey}{Transformer} is still improving at the end. Its best checkpoint is the last epoch, so it had not finished learning.}
 \label{fig:valloss}
@@ -409,7 +410,7 @@ Urdu is written right to left.
 
 \begin{center}\small
 \begin{longtable}{@{}p{2.6cm}>{\raggedleft\arraybackslash}p{10.6cm}c@{}}
-\caption{Five fixed test sentences translated by every model.}\label{tab:examples}\\
+\caption{Five fixed test sentences translated by every model. The \textcolor{cKey}{Transformer} matches the reference on 4 of the 5; no other model matches more than 2.}\label{tab:examples}\\
 \toprule
 \textbf{Model} & \textbf{Urdu output} & \textbf{=\,ref}\\ \midrule \endfirsthead
 \toprule \textbf{Model} & \textbf{Urdu output} & \textbf{=\,ref}\\ \midrule \endhead
@@ -606,6 +607,7 @@ DATA_DIR=data python nmt_en_ur.py
 To evaluate the trained weights in \file{results/} without retraining, set \texttt{PRETRAINED\_DIR=results}.
 This is how \file{23L-0723_NLP_Assignment-3.ipynb} was executed.
 
+\clearpage
 \appendix
 \section{All fixed test sentences}
 \label{app:examples}
@@ -615,7 +617,7 @@ The remaining ten of the 15 fixed test sentences (all 15 are in \file{results/sa
 
 \begin{center}\small
 \begin{longtable}{@{}p{2.6cm}>{\raggedleft\arraybackslash}p{10.6cm}c@{}}
-\caption{The other ten fixed test sentences.}\label{tab:appx}\\
+\caption{The other ten fixed test sentences. These are harder: only two are ever matched exactly, \textit{he raised his hand} (all six models) and \textit{zain saw everything} (all except RNN + GloVe).}\label{tab:appx}\\
 \toprule
 \textbf{Model} & \textbf{Urdu output} & \textbf{=\,ref}\\ \midrule \endfirsthead
 \toprule \textbf{Model} & \textbf{Urdu output} & \textbf{=\,ref}\\ \midrule \endhead
